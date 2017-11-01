@@ -16,7 +16,7 @@
 <text wx:if="{{errLoginTips}}" class='text-danger'>{{errMsg}}</text>
 </view>
 <view class='mt-1-3125'>
-<button bindtap='bindLogin' class='btn btn-large btn-default'>登入</button>
+<button bindtap='bindLogin' class='btn btn-default'>登入</button>
 </view>
 </view>
 
