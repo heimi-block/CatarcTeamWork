@@ -1,0 +1,102 @@
+<view class="page">
+    <view class="page__bd">
+            <view class="weui-search-bar">
+            <view class="weui-search-bar__form">
+                <view class="weui-search-bar__box">
+                    <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
+                    <input type="text" class="weui-search-bar__input" placeholder="搜索" value="{{inputVal}}" focus="{{inputShowed}}" bindinput="inputTyping" />
+                    <view class="weui-icon-clear" wx:if="{{inputVal.length > 0}}" bindtap="clearInput">
+                        <icon type="clear" size="14"></icon>
+                    </view>
+                </view>
+                <label class="weui-search-bar__label" hidden="{{inputShowed}}" bindtap="showInput">
+                    <icon class="weui-icon-search" type="search" size="14"></icon>
+                    <view class="weui-search-bar__text">搜索</view>
+                </label>
+            </view>
+            <view class="weui-search-bar__cancel-btn" hidden="{{!inputShowed}}" bindtap="hideInput">取消</view>
+        </view>
+        <view class="weui-cells searchbar-result" wx:if="{{inputVal.length > 0}}">
+            <navigator url="" class="weui-cell" hover-class="weui-cell_active">
+                <view class="weui-cell__bd">
+                    <view>实时搜索文本</view>
+                </view>
+            </navigator>
+            <navigator url="" class="weui-cell" hover-class="weui-cell_active">
+                <view class="weui-cell__bd">
+                    <view>实时搜索文本</view>
+                </view>
+            </navigator>
+            <navigator url="" class="weui-cell" hover-class="weui-cell_active">
+                <view class="weui-cell__bd">
+                    <view>实时搜索文本</view>
+                </view>
+            </navigator>
+            <navigator url="" class="weui-cell" hover-class="weui-cell_active">
+                <view class="weui-cell__bd">
+                    <view>实时搜索文本</view>
+                </view>
+            </navigator>
+        </view>
+
+        <view class="weui-form-preview">
+            <view class="weui-form-preview__hd">
+                <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">编码</view>
+                    <view class="weui-form-preview__value_in-hd">CAZ2017KPL</view>
+                </view>
+            </view>
+            <view class="weui-form-preview__bd">
+                <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">简称</view>
+                    <view class="weui-form-preview__value">中国汽车技术研究中心</view>
+                </view>
+                <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">名称</view>
+                    <view class="weui-form-preview__value">天津客户李楠</view>
+                </view>
+                <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">项目状态</view>
+                    <view class="weui-form-preview__value">进行中</view>
+                </view>
+                <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">上次跟踪时间</view>
+                    <view class="weui-form-preview__value">2017-11-02</view>
+                </view>
+            </view>
+            <view class="weui-form-preview__ft">
+                <navigator url="../../pages/customer/customer" class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active" style='color:#229FFF'>查看跟踪</navigator>
+            </view>
+        </view>
+   
+          <view class="weui-form-preview">
+            <view class="weui-form-preview__hd">
+                <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">编码</view>
+                    <view class="weui-form-preview__value_in-hd">CAZ2012ABC</view>
+                </view>
+            </view>
+            <view class="weui-form-preview__bd">
+                <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">简称</view>
+                    <view class="weui-form-preview__value">天津师范大学</view>
+                </view>
+                <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">名称</view>
+                    <view class="weui-form-preview__value">天津客户骆鹏霄</view>
+                </view>
+                <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">项目状态</view>
+                    <view class="weui-form-preview__value">已完成</view>
+                </view>
+                <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">上次跟踪时间</view>
+                    <view class="weui-form-preview__value">2017-10-02</view>
+                </view>
+            </view>
+            <view class="weui-form-preview__ft">
+                <navigator url="../../pages/customer/customer" class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active" style='color:#229FFF'>查看跟踪</navigator>
+            </view>
+        </view>
+    </view>
+</view>

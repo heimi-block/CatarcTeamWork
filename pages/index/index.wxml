@@ -1,13 +1,21 @@
 <!--index.wxml-->
-<view class="container">
-  <view class="userinfo">
-    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-    <block wx:else>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-    </block>
-  </view>
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
-  </view>
+<view class="page">
+    <view class="page__bd">
+        <view class="weui-cells__title">待跟踪项目
+        <span class="weui-badge" style="margin-left:5px;top:-2px;position:relative">2</span></view>
+             <view class="weui-cells weui-cells_after-title">
+            <navigator url="../../pages/customer/customer" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                <view class="weui-cell__bd">中国汽车技术研究中心 (天津客户李楠)</view>
+                <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+            </navigator>
+              <navigator url="../../pages/customer/customer" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                <view class="weui-cell__bd">天津师范大学项目 (天津客户B)</view>
+                <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+            </navigator>
+        </view>
+        </view>
+</view>
+
+<view bindtap='bindCreateCustomer' style='bottom:40rpx;position:fixed;right:40rpx'>
+<image src='../../assets/img/add.png' style='width:100rpx;height:100rpx'></image>
 </view>
