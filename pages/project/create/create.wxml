@@ -1,0 +1,153 @@
+<!--customer.wxml-->
+<view class="customer">
+  <view class="page__bd">
+    <view class="weui-toptips weui-toptips_warn" wx:if="{{showTopTips}}">错误提示</view>
+
+    <view class="weui-cells weui-cells_after-title">
+
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">客户简称</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input class="weui-input" placeholder="请输入客户简称" />
+        </view>
+      </view>
+
+       <view class="weui-cell weui-cell_select">
+        <view class="weui-cell__hd weui-cell__hd_in-select-after">
+          <view class="weui-label">客户名称</view>
+        </view>
+        <view class="weui-cell__bd">
+          <picker bindchange="bindwCustomerAgencyNameChange" value="{{wCustomerAgencyNameIndex}}" range="{{wCustomerAgencyNames_name}}">
+            <view class="weui-select weui-select_in-select-after">{{wCustomerAgencyNames_name[wCustomerAgencyNameIndex]}}</view>
+          </picker>
+        </view>
+      </view>
+
+      <view class="weui-cell weui-cell_select">
+        <view class="weui-cell__hd weui-cell__hd_in-select-after">
+          <view class="weui-label">客户来源</view>
+        </view>
+        <view class="weui-cell__bd">
+          <picker bindchange="bindwCustomerSourceChange" value="{{wCustomerSourceIndex}}" range="{{wCustomerSources_name}}">
+            <view class="weui-select weui-select_in-select-after">{{wCustomerSources_name[wCustomerSourceIndex]}}</view>
+          </picker>
+        </view>
+      </view>
+
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">项目名称</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input class="weui-input" placeholder="请输入项目名称" />
+        </view>
+      </view>
+
+      <view class="weui-cell weui-cell_select">
+        <view class="weui-cell__hd weui-cell__hd_in-select-after">
+          <view class="weui-label">项目类型</view>
+        </view>
+        <view class="weui-cell__bd">
+          <picker bindchange="bindwProjectKindChange" value="{{wProjectKindIndex}}" range="{{wProjectKinds_name}}">
+            <view class="weui-select weui-select_in-select-after">{{wProjectKinds_name[wProjectKindIndex]}}</view>
+          </picker>
+        </view>
+      </view>    
+
+      <view class="weui-cell weui-cell_select">
+        <view class="weui-cell__hd weui-cell__hd_in-select-after">
+          <view class="weui-label">项目状态</view>
+        </view>
+        <view class="weui-cell__bd">
+          <picker bindchange="bindwProjectStateChange" value="{{wProjectStateIndex}}" range="{{wProjectStates_name}}">
+            <view class="weui-select weui-select_in-select-after">{{wProjectStates_name[wProjectStateIndex]}}</view>
+          </picker>
+        </view>
+      </view>  
+
+<view class="weui-cell weui-cell_select">
+  <view class="weui-cell__hd weui-cell__hd_in-select-after">
+    <view class="weui-label">销售阶段</view>
+  </view>
+  <view class="weui-cell__bd">
+    <picker bindchange="bindwSaleStageChange" value="{{wSaleStageIndex}}" range="{{wSaleStages_name}}">
+      <view class="weui-select weui-select_in-select-after">{{wSaleStages_name[wSaleStageIndex]}}</view>
+    </picker>
+  </view>
+</view>
+
+<view class="weui-cell weui-cell_select">
+  <view class="weui-cell__hd weui-cell__hd_in-select-after">
+    <view class="weui-label">招标方式</view>
+  </view>
+  <view class="weui-cell__bd">
+    <picker bindchange="bindwBiddingTypeChange" value="{{wBiddingTypeIndex}}" range="{{wBiddingTypes_name}}">
+      <view class="weui-select weui-select_in-select-after">{{wBiddingTypes_name[wBiddingTypeIndex]}}</view>
+    </picker>
+  </view>
+</view>
+
+      <view class="weui-cell">
+        <view class="weui-cell__bd">
+          <textarea class="weui-textarea" placeholder="请输入竞争对手" style="height: 2.3rem" />
+        </view>
+      </view>
+
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">评标办法</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input class="weui-input" placeholder="请输入评标办法" />
+        </view>
+      </view>
+      
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">计划投标日期</view>
+        </view>
+        <view class="weui-cell__bd">
+          <picker mode="date" value="{{bidPlanDate}}"  bindchange="bindBidPlanDateChange">
+            <view class="weui-input">{{bidPlanDate}}</view>
+          </picker>
+        </view>
+      </view>
+
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">预计订单额</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input class="weui-input" placeholder="请输入预计订单额" />
+        </view>
+      </view>
+
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">合同签订日期</view>
+        </view>
+        <view class="weui-cell__bd">
+          <picker mode="date" value="{{contractSignDate}}" bindchange="bindContractSignDateChange">
+            <view class="weui-input">{{contractSignDate}}</view>
+          </picker>
+        </view>
+      </view>
+
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">实际签订额</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input class="weui-input" placeholder="请输入实际签订额" />
+        </view>
+      </view>
+
+</view>
+
+    <view class="weui-btn-area" style='margin-bottom:1.3252rem'>
+      <button class="btn btn-default" bindtap="showTopTips">提交</button>
+    </view>
+  </view>
+</view>

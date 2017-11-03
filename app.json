@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/project/create/create",
     "pages/login/login",
     "pages/index/index",
     "pages/customer/customer",

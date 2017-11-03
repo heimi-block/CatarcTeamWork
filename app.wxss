@@ -38,3 +38,7 @@ background: #1da1f2;
 .text-danger{
   color: rgb(224, 36, 94);
 }
+
+page{
+  height: 100%
+}
