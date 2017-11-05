@@ -1,16 +1,26 @@
 <!--customer.wxml-->
 <view class="customer">
+          <form bindsubmit="bindFormSubmit">
   <view class="page__bd">
-    <view class="weui-toptips weui-toptips_primary" wx:if="{{showTopTips}}" style='background:#1AAD19'>项目录入成功</view>
+    <view class="weui-toptips weui-toptips_primary" wx:if="{{showTopTips}}" style='background:#1AAD19'>项目修改成功</view>
 
     <view class="weui-cells weui-cells_after-title">
+
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">编码</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input class="weui-input" value='{{projectCoding}}' disabled='disabled' />
+        </view>
+      </view>
 
       <view class="weui-cell weui-cell_input">
         <view class="weui-cell__hd">
           <view class="weui-label">客户简称</view>
         </view>
         <view class="weui-cell__bd">
-          <input bindinput='bindCustomerNameInput' class="weui-input" placeholder="请输入客户简称" />
+          <input bindinput='bindCustomerNameInput' class="weui-input" placeholder="请输入客户简称" value='{{customerName}}' />
         </view>
       </view>
 
@@ -41,7 +51,7 @@
           <view class="weui-label">项目名称</view>
         </view>
         <view class="weui-cell__bd">
-          <input bindinput='bindProjectNameInput' class="weui-input" placeholder="请输入项目名称" />
+          <input bindinput='bindProjectNameInput' class="weui-input" placeholder="请输入项目名称" value='{{projectName}}' />
         </view>
       </view>
 
@@ -66,6 +76,15 @@
           </picker>
         </view>
       </view>  
+   
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">负责人</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input class="weui-input" value='{{wProjectManValue}}' disabled='disabled' />
+        </view>
+      </view>
 
 <view class="weui-cell weui-cell_select">
   <view class="weui-cell__hd weui-cell__hd_in-select-after">
@@ -77,6 +96,9 @@
     </picker>
   </view>
 </view>
+
+ 
+
 
 <view class="weui-cell weui-cell_select">
   <view class="weui-cell__hd weui-cell__hd_in-select-after">
@@ -91,7 +113,8 @@
 
       <view class="weui-cell">
         <view class="weui-cell__bd">
-          <textarea bindblur='bindCompetitorBlur' class="weui-textarea" placeholder="请输入竞争对手" auto-height />
+
+          <textarea value='{{competitor}}' name="competitor" class="weui-textarea" placeholder="请输入竞争对手" auto-height />
         </view>
       </view>
 
@@ -100,7 +123,7 @@
           <view class="weui-label">评标办法</view>
         </view>
         <view class="weui-cell__bd">
-          <input bindinput='bindBidEvaluationMethodInput' class="weui-input" placeholder="请输入评标办法" />
+          <input bindinput='bindBidEvaluationMethodInput' value='{{bidEvaluationMethod}}' class="weui-input" placeholder="请输入评标办法" />
         </view>
       </view>
       
@@ -120,7 +143,7 @@
           <view class="weui-label">预计订单额</view>
         </view>
         <view class="weui-cell__bd">
-          <input bindinput='bindForecastOrderMoneyInput' class="weui-input" placeholder="请输入预计订单额" />
+          <input value='{{forecastOrderMoney}}' bindinput='bindForecastOrderMoneyInput' class="weui-input" placeholder="请输入预计订单额" />
         </view>
       </view>
 
@@ -140,14 +163,16 @@
           <view class="weui-label">实际签订额</view>
         </view>
         <view class="weui-cell__bd">
-          <input bindinput='bindActualSignMoneyInput' class="weui-input" placeholder="请输入实际签订额" />
+          <input bindinput='bindActualSignMoneyInput' value='{{actualSignMoney}}' class="weui-input" placeholder="请输入实际签订额" />
         </view>
       </view>
 
 </view>
 
     <view class="weui-btn-area" style='margin-bottom:1.3252rem'>
-      <button class="btn btn-default" bindtap="showTopTips">提交</button>
+      <button class="btn btn-default" form-type="submit" type='primary' style='margin-bottom:20rpx'>更新</button>
+      <button class="btn btn-default" type="warn" bindtap="bindDelProject">删除</button>
     </view>
   </view>
+        </form>
 </view>

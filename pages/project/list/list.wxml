@@ -1,0 +1,91 @@
+<view class="page">
+    <view class="page__bd">
+        <view class="weui-tab">
+            <view class="weui-navbar">
+                <block wx:for="{{tabs}}" wx:key="*this">
+                    <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
+                        <view class="weui-navbar__title">{{item}}</view>
+                    </view>
+                </block>
+                <view class="weui-navbar__slider" style="left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
+            </view>
+            <view class="weui-tab__panel">
+            <!--         选项一的内容    -->
+                <view class="weui-tab__content" hidden="{{activeIndex != 0}}">
+       
+       <block wx:for="{{projectListMe}}" wx:for-index="idx" wx:for-item="item">
+          <view class="weui-form-preview">
+            <view class="weui-form-preview__hd">
+                <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">编码</view>
+                    <view class="weui-form-preview__value_in-hd">{{item.projectCoding}}</view>
+                </view>
+            </view>
+            <view class="weui-form-preview__bd">
+                <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">客户简称</view>
+                    <view class="weui-form-preview__value">{{item.wCustomerAgencyName.name}}</view>
+                </view>
+                <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">项目名称</view>
+                    <view class="weui-form-preview__value">{{item.projectName}}</view>
+                </view>
+                <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">项目状态</view>
+                    <view class="weui-form-preview__value">{{item.wProjectState.name}}</view>
+                </view>
+                    <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">销售阶段</view>
+                    <view class="weui-form-preview__value">{{item.wSaleStage.name}}</view>
+                </view>
+            </view>
+            <view class="weui-form-preview__ft">
+                <navigator url="../../../pages/project/detail/detail?projectId={{item._id}}" class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active" style='color:#229FFF'>详细跟踪</navigator>
+            </view>
+        </view>
+        </block>
+
+
+
+                </view>
+
+
+            <!--         选项二的内容    -->
+                <view class="weui-tab__content" hidden="{{activeIndex != 1}}">
+                <block wx:for="{{projectListAll}}" wx:for-index="idx" wx:for-item="item">
+          <view class="weui-form-preview">
+            <view class="weui-form-preview__hd">
+                <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">编码</view>
+                    <view class="weui-form-preview__value_in-hd">{{item.projectCoding}}</view>
+                </view>
+            </view>
+            <view class="weui-form-preview__bd">
+                <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">客户简称</view>
+                    <view class="weui-form-preview__value">{{item.wCustomerAgencyName.name}}</view>
+                </view>
+                <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">项目名称</view>
+                    <view class="weui-form-preview__value">{{item.projectName}}</view>
+                </view>
+                <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">项目状态</view>
+                    <view class="weui-form-preview__value">{{item.wProjectState.name}}</view>
+                </view>
+                    <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">销售阶段</view>
+                    <view class="weui-form-preview__value">{{item.wSaleStage.name}}</view>
+                </view>
+            </view>
+            <view class="weui-form-preview__ft">
+                <navigator url="../../../pages/project/detail/detail?projectId={{item._id}}" class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active" style='color:#229FFF'>详细跟踪</navigator>
+            </view>
+        </view>
+        </block>
+                
+                </view>
+            </view>
+        </view>
+    </view>
+</view>

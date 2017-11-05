@@ -14,6 +14,17 @@ const formatNumber = n => {
   return n[1] ? n : '0' + n
 }
 
+const pickerCurrentIndex = (pageData, resData) => {
+  console.log('pageData:'+ pageData)
+  console.log('resData:'+ resData)
+  for (let i = 0; i < pageData.length; i++) {
+    if (pageData[i] === resData) {
+      return i
+    }
+  }
+}
+
 module.exports = {
-  formatTime: formatTime
+  formatTime: formatTime,
+  pickerCurrentIndex: pickerCurrentIndex
 }

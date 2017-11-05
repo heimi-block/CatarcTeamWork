@@ -1,8 +1,11 @@
 const network = require('./../../../utils/network.js')
+const util = require('./../../../utils/util.js')
 
 Page({
   data: {
     showTopTips: false,
+    projectId: '',
+    projectCoding: '',
     customerName: '',
     wCustomerAgencyName: '',
     wCustomerSource: '',
@@ -17,6 +20,7 @@ Page({
     forecastOrderMoney: '',
     contractSignDate: '',
     actualSignMoney: '',
+    wProjectManValue: '',
     // 客户名称 wCustomerAgencyName
     wCustomerAgencyNames_name: [],
     wCustomerAgencyNames_id: [],
@@ -116,11 +120,6 @@ Page({
       projectName: e.detail.value
     })
   },
-  bindCompetitorBlur: function (e) {
-    this.setData({
-      competitor: e.detail.value
-    })
-  },
   bindBidEvaluationMethodInput: function (e) {
     this.setData({
       bidEvaluationMethod: e.detail.value
@@ -136,13 +135,20 @@ Page({
       actualSignMoney: e.detail.value
     })
   },  
-  onShow: function () {
+  onLoad: function (options) {
     this.getwCustomerAgencyName()
     this.getwCustomerSource()
     this.getwProjectKind()
     this.getwProjectState()
     this.getwSaleStage()
     this.getwBiddingType()
+
+    console.log(options.projectId)
+    const projectId = options.projectId
+    this.setData({
+      projectId: projectId
+    })
+    this.getProjectDetail(projectId)
   },
   // 获取动态维护的w属性
   getwCustomerSource: function () {
@@ -253,8 +259,8 @@ Page({
       fail()
     })
   },
-  showTopTips: function () {
-    var that = this;
+  // 更新项目，text-area微信6.3bug,需采用此方式
+  bindFormSubmit: function (e) {
     const params = {}
     params.wProjectMan = wx.getStorageSync('_id')
     params.customerName = this.data.customerName
@@ -265,19 +271,20 @@ Page({
     params.wProjectState = this.data.wProjectState
     params.wSaleStage = this.data.wSaleStage
     params.wBiddingType = this.data.wBiddingType
-    params.competitor = this.data.competitor
+    params.competitor = e.detail.value.competitor
     params.bidEvaluationMethod = this.data.bidEvaluationMethod
     params.bidPlanDate = this.data.bidPlanDate
     params.forecastOrderMoney = this.data.forecastOrderMoney
     params.contractSignDate = this.data.contractSignDate
     params.actualSignMoney = this.data.actualSignMoney
     // 检验比填写，您没有填写xx,是后续填写吗
-    // console.log(params)
+    console.log(params)
     let token = wx.getStorageSync('token')
-    network.requestLoading('/api/project', 'POST', params, { 'Content-Type': 'application/x-www-form-urlencoded', 'X-MC-TOKEN': 'Bearer ' + token }, '', (res) => {
+    network.requestLoading('/api/project/' + this.data.projectId, 'PUT', params, { 'Content-Type': 'application/x-www-form-urlencoded', 'X-MC-TOKEN': 'Bearer ' + token }, '', (res) => {
       // 数据请求成功，res
     if (res.code === 1) {
     this.setData({
+      projectCoding: res.result.projectCoding,
       showTopTips: true
     });
     setTimeout(function () {
@@ -289,5 +296,99 @@ Page({
       }, () => {
         console.log('error')
       })
+    },
+getProjectDetail: function (projectId) {
+    let token = wx.getStorageSync('token')
+    network.requestLoading('/api/project/' + projectId, 'GET', '', { 'Content-Type': 'application/x-www-form-urlencoded', 'X-MC-TOKEN': 'Bearer ' + token }, '', (res) => {
+      // 数据请求成功，res
+      console.log(res)
+      console.log(this.data.wCustomerAgencyNames_id)
+      // let wCustomerAgencyNames_id2 = function(i) {
+        // for (let i = 0; i < this.data.wCustomerAgencyNames_id.length; i++) {
+        //   if (this.data.wCustomerAgencyNames_id[i] === res.result.wCustomerAgencyName._id) {
+        //     console.log(i)
+        //     return i
+        //   }
+        // }
+      // }
+
+      if (res.code === 1) {
+        console.log(res.result.wProjectState === null)
+        this.setData({
+          projectCoding: res.result.projectCoding,
+          customerName: res.result.customerName,
+          projectName: res.result.projectName,
+          competitor: res.result.competitor,
+          bidEvaluationMethod: res.result.bidEvaluationMethod,
+          bidPlanDate: res.result.bidPlanDate,
+          forecastOrderMoney: res.result.forecastOrderMoney,
+          contractSignDate: res.result.contractSignDate,
+          actualSignMoney: res.result.actualSignMoney,
+          wProjectManValue: res.result.wProjectMan.realName,
+          wProjectMan: res.result.wProjectMan._id,
+          wCustomerAgencyName: res.result.wCustomerAgencyName === null ? '' : res.result.wCustomerAgencyName._id,
+          wCustomerAgencyNameIndex: util.pickerCurrentIndex(this.data.wCustomerAgencyNames_id, res.result.wCustomerAgencyName === null ? '' : res.result.wCustomerAgencyName._id),
+          wCustomerSource: res.result.wCustomerSource._id,
+          wCustomerSourceIndex: util.pickerCurrentIndex(this.data.wCustomerSources_id, res.result.wCustomerSource._id),
+          wProjectKind: res.result.wProjectKind === null ? '' : res.result.wProjectKind._id,
+          wProjectKindIndex: util.pickerCurrentIndex(this.data.wProjectKinds_id, res.result.wProjectKind === null ? '' : res.result.wProjectKind._id),
+          wProjectState: res.result.wProjectState === null ? '' : res.result.wProjectState._id,
+          wProjectStateIndex: util.pickerCurrentIndex(this.data.wProjectStates_id, res.result.wProjectState === null ? '' : res.result.wProjectState._id),
+          wSaleStage: res.result.wSaleStage === null ? '' : res.result.wSaleStage._id,
+          wSaleStageIndex: util.pickerCurrentIndex(this.data.wSaleStages_id, res.result.wSaleStage === null ? '' : res.result.wSaleStage._id),
+          wBiddingType: res.result.wBiddingType === null ? '' : res.result.wBiddingType._id,
+          wBiddingTypeIndex: util.pickerCurrentIndex(this.data.wBiddingTypes_id, res.result.wBiddingType === null ? '' : res.result.wBiddingType._id)
+        })
+      } else {
+        // 重新请求
+      }
+    }, () => {
+      fail()
+    })
+  },
+// 删除项目
+  openDelConfirm: function (projectId) {
+  wx.showModal({
+    title: '删除操作',
+    content: '您确定要删除此项目吗？',
+    confirmText: "确定",
+    cancelText: "取消",
+    success: function (res) {
+      console.log(res);
+      if (res.confirm) {
+        console.log('用户点击主操作' + projectId)
+        let token = wx.getStorageSync('token')
+        network.requestLoading('/api/project/' + projectId, 'DELETE', '', { 'Content-Type': 'application/x-www-form-urlencoded', 'X-MC-TOKEN': 'Bearer ' + token }, '', (res) => {
+          if(res.code === 1) {
+            wx.showModal({
+              content: '删除成功',
+              showCancel: false,
+              success: function (res) {
+                if (res.confirm) {
+                  wx.switchTab({
+                    url: '../../../pages/project/list/list',
+                  })
+                }
+              }
+            })
+          }
+        }, () => {
+          fail()
+        })
+      } else {
+        console.log('用户点击辅助操作')
+      }
     }
+  });
+},
+  bindDelProject: function() {
+    // 如果负责人的ID不是当前用户ID，提示不能删除
+
+    // 负责人可选中删除此项目, 弹出选项是否删除
+
+    this.openDelConfirm(this.data.projectId)
+  }
+
+
+
 });
