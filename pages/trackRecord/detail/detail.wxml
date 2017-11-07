@@ -1,7 +1,8 @@
 <!--customer.wxml-->
 <view class="customer">
+          <form bindsubmit="bindFormSubmit">
   <view class="page__bd">
-    <view class="weui-toptips weui-toptips_warn" wx:if="{{showTopTips}}">错误提示</view>
+    <view class="weui-toptips weui-toptips_primary" wx:if="{{showTopTips}}" style='background:#1da1f2;'>项目修改成功</view>
 
     <view class="weui-cells weui-cells_after-title">
 
@@ -10,36 +11,47 @@
           <view class="weui-label">编码</view>
         </view>
         <view class="weui-cell__bd">
-          <input class="weui-input" disabled='true' value='NSD23491SC' />
+          <input class="weui-input" value='{{projectCoding}}' disabled='disabled' />
         </view>
       </view>
 
       <view class="weui-cell weui-cell_input">
         <view class="weui-cell__hd">
-          <view class="weui-label">简称</view>
+          <view class="weui-label">客户简称</view>
         </view>
         <view class="weui-cell__bd">
-          <input class="weui-input" placeholder="请输入简称(JB客户A)" />
+          <input bindinput='bindCustomerNameInput' class="weui-input" placeholder="请输入客户简称" value='{{customerName}}' />
         </view>
       </view>
 
-      <view class="weui-cell weui-cell_input">
-        <view class="weui-cell__hd">
-          <view class="weui-label">名称</view>
+       <view class="weui-cell weui-cell_select">
+        <view class="weui-cell__hd weui-cell__hd_in-select-after">
+          <view class="weui-label">客户名称</view>
         </view>
         <view class="weui-cell__bd">
-          <input class="weui-input" placeholder="请输入名称(天津客户A)" />
+          <picker bindchange="bindwCustomerAgencyNameChange" value="{{wCustomerAgencyNameIndex}}" range="{{wCustomerAgencyNames_name}}">
+            <view class="weui-select weui-select_in-select-after">{{wCustomerAgencyNames_name[wCustomerAgencyNameIndex]}}</view>
+          </picker>
         </view>
       </view>
 
       <view class="weui-cell weui-cell_select">
         <view class="weui-cell__hd weui-cell__hd_in-select-after">
-          <view class="weui-label">销售阶段</view>
+          <view class="weui-label">客户来源</view>
         </view>
         <view class="weui-cell__bd">
-          <picker bindchange="bindCountryChange" value="{{countryIndex}}" range="{{countries}}">
-            <view class="weui-select weui-select_in-select-after">{{countries[countryIndex]}}</view>
+          <picker bindchange="bindwCustomerSourceChange" value="{{wCustomerSourceIndex}}" range="{{wCustomerSources_name}}">
+            <view class="weui-select weui-select_in-select-after">{{wCustomerSources_name[wCustomerSourceIndex]}}</view>
           </picker>
+        </view>
+      </view>
+
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">项目名称</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input bindinput='bindProjectNameInput' class="weui-input" placeholder="请输入项目名称" value='{{projectName}}' />
         </view>
       </view>
 
@@ -48,8 +60,8 @@
           <view class="weui-label">项目类型</view>
         </view>
         <view class="weui-cell__bd">
-          <picker bindchange="bindCountryChange" value="{{countryIndex}}" range="{{countries}}">
-            <view class="weui-select weui-select_in-select-after">{{countries[countryIndex]}}</view>
+          <picker bindchange="bindwProjectKindChange" value="{{wProjectKindIndex}}" range="{{wProjectKinds_name}}">
+            <view class="weui-select weui-select_in-select-after">{{wProjectKinds_name[wProjectKindIndex]}}</view>
           </picker>
         </view>
       </view>    
@@ -59,60 +71,59 @@
           <view class="weui-label">项目状态</view>
         </view>
         <view class="weui-cell__bd">
-          <picker bindchange="bindCountryChange" value="{{countryIndex}}" range="{{countries}}">
-            <view class="weui-select weui-select_in-select-after">{{countries[countryIndex]}}</view>
+          <picker bindchange="bindwProjectStateChange" value="{{wProjectStateIndex}}" range="{{wProjectStates_name}}">
+            <view class="weui-select weui-select_in-select-after">{{wProjectStates_name[wProjectStateIndex]}}</view>
           </picker>
         </view>
-      </view>    
-        
+      </view>  
+   
       <view class="weui-cell weui-cell_input">
         <view class="weui-cell__hd">
           <view class="weui-label">负责人</view>
         </view>
         <view class="weui-cell__bd">
-          <input class="weui-input" disabled='true' value='李楠' />
+          <input class="weui-input" value='{{wProjectManValue}}' disabled='disabled' />
         </view>
       </view>
 
-      <view class="weui-cell weui-cell_select">
-        <view class="weui-cell__hd weui-cell__hd_in-select-after">
-          <view class="weui-label">客户来源</view>
-        </view>
-        <view class="weui-cell__bd">
-          <picker bindchange="bindCountryChange" value="{{countryIndex}}" range="{{countries}}">
-            <view class="weui-select weui-select_in-select-after">{{countries[countryIndex]}}</view>
-          </picker>
-        </view>
-      </view>      
+<view class="weui-cell weui-cell_select">
+  <view class="weui-cell__hd weui-cell__hd_in-select-after">
+    <view class="weui-label">销售阶段</view>
+  </view>
+  <view class="weui-cell__bd">
+    <picker bindchange="bindwSaleStageChange" value="{{wSaleStageIndex}}" range="{{wSaleStages_name}}">
+      <view class="weui-select weui-select_in-select-after">{{wSaleStages_name[wSaleStageIndex]}}</view>
+    </picker>
+  </view>
+</view>
 
-      <view class="weui-cell weui-cell_select">
-        <view class="weui-cell__hd weui-cell__hd_in-select-after">
-          <view class="weui-label">招标方式</view>
-        </view>
+ 
+
+
+<view class="weui-cell weui-cell_select">
+  <view class="weui-cell__hd weui-cell__hd_in-select-after">
+    <view class="weui-label">招标方式</view>
+  </view>
+  <view class="weui-cell__bd">
+    <picker bindchange="bindwBiddingTypeChange" value="{{wBiddingTypeIndex}}" range="{{wBiddingTypes_name}}">
+      <view class="weui-select weui-select_in-select-after">{{wBiddingTypes_name[wBiddingTypeIndex]}}</view>
+    </picker>
+  </view>
+</view>
+
+      <view class="weui-cell">
         <view class="weui-cell__bd">
-          <picker bindchange="bindCountryChange" value="{{countryIndex}}" range="{{countries}}">
-            <view class="weui-select weui-select_in-select-after">{{countries[countryIndex]}}</view>
-          </picker>
+
+          <textarea value='{{competitor}}' name="competitor" class="weui-textarea" placeholder="请输入竞争对手" auto-height />
         </view>
       </view>
 
       <view class="weui-cell weui-cell_input">
         <view class="weui-cell__hd">
-          <view class="weui-label">竞争对手</view>
-        </view>
-        <view class="weui-cell__bd">
-          <input class="weui-input" placeholder="请输入竞争对手名称" />
-        </view>
-      </view>      
-
-      <view class="weui-cell weui-cell_select">
-        <view class="weui-cell__hd weui-cell__hd_in-select-after">
           <view class="weui-label">评标办法</view>
         </view>
         <view class="weui-cell__bd">
-          <picker bindchange="bindCountryChange" value="{{countryIndex}}" range="{{countries}}">
-            <view class="weui-select weui-select_in-select-after">{{countries[countryIndex]}}</view>
-          </picker>
+          <input bindinput='bindBidEvaluationMethodInput' value='{{bidEvaluationMethod}}' class="weui-input" placeholder="请输入评标办法" />
         </view>
       </view>
       
@@ -121,8 +132,8 @@
           <view class="weui-label">计划投标日期</view>
         </view>
         <view class="weui-cell__bd">
-          <picker mode="date" value="{{date}}" start="2015-09-01" end="2017-09-01" bindchange="bindDateChange">
-            <view class="weui-input">{{date}}</view>
+          <picker mode="date" value="{{bidPlanDate}}"  bindchange="bindBidPlanDateChange">
+            <view class="weui-input">{{bidPlanDate}}</view>
           </picker>
         </view>
       </view>
@@ -132,7 +143,7 @@
           <view class="weui-label">预计订单额</view>
         </view>
         <view class="weui-cell__bd">
-          <input class="weui-input" placeholder="请输入预计订单额" />
+          <input value='{{forecastOrderMoney}}' bindinput='bindForecastOrderMoneyInput' class="weui-input" placeholder="请输入预计订单额" />
         </view>
       </view>
 
@@ -141,8 +152,8 @@
           <view class="weui-label">合同签订日期</view>
         </view>
         <view class="weui-cell__bd">
-          <picker mode="date" value="{{date}}" start="2015-09-01" end="2017-09-01" bindchange="bindDateChange2">
-            <view class="weui-input">{{date}}</view>
+          <picker mode="date" value="{{contractSignDate}}" bindchange="bindContractSignDateChange">
+            <view class="weui-input">{{contractSignDate}}</view>
           </picker>
         </view>
       </view>
@@ -152,14 +163,14 @@
           <view class="weui-label">实际签订额</view>
         </view>
         <view class="weui-cell__bd">
-          <input class="weui-input" placeholder="请输入实际签订额" />
+          <input bindinput='bindActualSignMoneyInput' value='{{actualSignMoney}}' class="weui-input" placeholder="请输入实际签订额" />
         </view>
       </view>
-    </view>
+</view>
 
-    <view class="weui-cells__title">追踪记录</view>
-
-    <view class='zhuzhong'>
+       <view class="weui-cells__title" style='font-size:17px'>项目跟踪记录 <span><button class="btn btn-default" type="primary" style='float:right;font-size:10px;'>跟踪</button></span></view>      
+      
+   <view class='zhuzhong' style='font-size:15px'>
       <view class="weui-cell weui-cell_input">
         <view class="weui-cell__hd">
           <view class="weui-label">追踪日期</view>
@@ -200,31 +211,27 @@
         </view>
       </view>
 
-        <view class="weui-cells weui-cells_after-title">
+    <view class="weui-cells weui-cells_after-title">
       <view class="weui-cell">
         <view class="weui-cell__bd">
           <textarea class="weui-textarea" placeholder="下次联系内容" style="height: 2.3rem" />
         </view>
       </view>
     </view>
-    
-    <view class="weui-cells weui-cells_after-title">
+
+        <view class="weui-cells weui-cells_after-title">
       <view class="weui-cell">
         <view class="weui-cell__bd">
           <textarea class="weui-textarea" placeholder="详细描述" style="height: 5.3rem" />
         </view>
       </view>
     </view>
-</view>
+    </view>
 
-
-
-    <view class="weui-btn-area">
-      <button class="btn btn-default" bindtap="showTopTips">提交</button>
-
-      <button class="btn btn-default" type="primary" bindtap="showTopTips">更新</button>
-
-      <button class="btn btn-default" type="warn" bindtap="showTopTips">删除</button>
+    <view class="weui-btn-area" style='margin-bottom:1.3252rem'>
+      <button class="btn btn-default" form-type="submit" style='margin-bottom:20rpx'>更新</button>
+      <button class="btn btn-default" type="warn" bindtap="bindDelProject">删除</button>
     </view>
   </view>
+        </form>
 </view>

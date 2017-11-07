@@ -1,15 +1,13 @@
 {
   "pages": [
+        "pages/login/login",
     "pages/project/list/list",
-    "pages/project/detail/detail",
-    "pages/login/login",
     "pages/project/create/create",
+    "pages/project/detail/detail",
     "pages/index/index",
-    "pages/customer/customer",
-    "pages/user/user",
-    "pages/list/list",
-    "pages/logs/logs",
-    "pages/searchbar/searchbar"
+        "pages/trackRecord/create/create",
+        "pages/trackRecord/detail/detail",
+    "pages/user/user"
   ],
   "window": {
     "backgroundTextStyle": "light",

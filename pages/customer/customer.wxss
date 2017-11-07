@@ -1,5 +1,0 @@
-@import '../../assets/css/weui.wxss';
-
-.customer {
-  background-color: #f8f8f8;
-}

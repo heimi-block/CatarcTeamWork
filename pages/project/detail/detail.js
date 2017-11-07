@@ -21,6 +21,7 @@ Page({
     contractSignDate: '',
     actualSignMoney: '',
     wProjectManValue: '',
+    wTrackRecords: [], // 项目记录
     // 客户名称 wCustomerAgencyName
     wCustomerAgencyNames_name: [],
     wCustomerAgencyNames_id: [],
@@ -261,6 +262,19 @@ Page({
   },
   // 更新项目，text-area微信6.3bug,需采用此方式
   bindFormSubmit: function (e) {
+    // 如果负责人的ID不是当前用户ID，提示不能更新
+    if (wx.getStorageSync('_id') !== this.data.wProjectMan) {
+      wx.showModal({
+        content: '您不可以更新其他人的项目，只可以对此项目进行跟踪记录',
+        showCancel: false,
+        success: function (res) {
+          if (res.confirm) {
+            console.log('权限不足')
+          }
+        }
+      })
+      return false
+    }
     const params = {}
     params.wProjectMan = wx.getStorageSync('_id')
     params.customerName = this.data.customerName
@@ -283,7 +297,8 @@ Page({
     network.requestLoading('/api/project/' + this.data.projectId, 'PUT', params, { 'Content-Type': 'application/x-www-form-urlencoded', 'X-MC-TOKEN': 'Bearer ' + token }, '', (res) => {
       // 数据请求成功，res
     if (res.code === 1) {
-    this.setData({
+    let that = this
+    that.setData({
       projectCoding: res.result.projectCoding,
       showTopTips: true
     });
@@ -302,7 +317,7 @@ getProjectDetail: function (projectId) {
     network.requestLoading('/api/project/' + projectId, 'GET', '', { 'Content-Type': 'application/x-www-form-urlencoded', 'X-MC-TOKEN': 'Bearer ' + token }, '', (res) => {
       // 数据请求成功，res
       console.log(res)
-      console.log(this.data.wCustomerAgencyNames_id)
+      console.log(res.result.wCustomerSource)
       // let wCustomerAgencyNames_id2 = function(i) {
         // for (let i = 0; i < this.data.wCustomerAgencyNames_id.length; i++) {
         //   if (this.data.wCustomerAgencyNames_id[i] === res.result.wCustomerAgencyName._id) {
@@ -313,34 +328,58 @@ getProjectDetail: function (projectId) {
       // }
 
       if (res.code === 1) {
-        console.log(res.result.wProjectState === null)
+        const crm = res.result
         this.setData({
-          projectCoding: res.result.projectCoding,
-          customerName: res.result.customerName,
-          projectName: res.result.projectName,
-          competitor: res.result.competitor,
-          bidEvaluationMethod: res.result.bidEvaluationMethod,
-          bidPlanDate: res.result.bidPlanDate,
-          forecastOrderMoney: res.result.forecastOrderMoney,
-          contractSignDate: res.result.contractSignDate,
-          actualSignMoney: res.result.actualSignMoney,
-          wProjectManValue: res.result.wProjectMan.realName,
-          wProjectMan: res.result.wProjectMan._id,
-          wCustomerAgencyName: res.result.wCustomerAgencyName === null ? '' : res.result.wCustomerAgencyName._id,
-          wCustomerAgencyNameIndex: util.pickerCurrentIndex(this.data.wCustomerAgencyNames_id, res.result.wCustomerAgencyName === null ? '' : res.result.wCustomerAgencyName._id),
-          wCustomerSource: res.result.wCustomerSource._id,
-          wCustomerSourceIndex: util.pickerCurrentIndex(this.data.wCustomerSources_id, res.result.wCustomerSource._id),
-          wProjectKind: res.result.wProjectKind === null ? '' : res.result.wProjectKind._id,
-          wProjectKindIndex: util.pickerCurrentIndex(this.data.wProjectKinds_id, res.result.wProjectKind === null ? '' : res.result.wProjectKind._id),
-          wProjectState: res.result.wProjectState === null ? '' : res.result.wProjectState._id,
-          wProjectStateIndex: util.pickerCurrentIndex(this.data.wProjectStates_id, res.result.wProjectState === null ? '' : res.result.wProjectState._id),
-          wSaleStage: res.result.wSaleStage === null ? '' : res.result.wSaleStage._id,
-          wSaleStageIndex: util.pickerCurrentIndex(this.data.wSaleStages_id, res.result.wSaleStage === null ? '' : res.result.wSaleStage._id),
-          wBiddingType: res.result.wBiddingType === null ? '' : res.result.wBiddingType._id,
-          wBiddingTypeIndex: util.pickerCurrentIndex(this.data.wBiddingTypes_id, res.result.wBiddingType === null ? '' : res.result.wBiddingType._id)
+          wTrackRecords: crm.trackRecords.reverse().map(e => {
+            e.createdAt = e.createdAt.substr(0, 10)
+            return e
+          }),
+          projectCoding: crm.projectCoding,
+          customerName: crm.customerName,
+          projectName: crm.projectName,
+          competitor: crm.competitor,
+          bidEvaluationMethod: crm.bidEvaluationMethod,
+          bidPlanDate: crm.bidPlanDate,
+          forecastOrderMoney: crm.forecastOrderMoney,
+          contractSignDate: crm.contractSignDate,
+          actualSignMoney: crm.actualSignMoney,
+          wProjectManValue: crm.wProjectMan.realName,
+          wProjectMan: crm.wProjectMan._id,
+
+          wCustomerAgencyName: (crm.wCustomerAgencyName === undefined || crm.wCustomerAgencyName === null) ? '' : crm.wCustomerAgencyName._id,
+          wCustomerAgencyNameIndex: util.pickerCurrentIndex(this.data.wCustomerAgencyNames_id, (crm.wCustomerAgencyName === undefined || crm.wCustomerAgencyName === null) ? '' : crm.wCustomerAgencyName._id),
+
+          wCustomerSource: (crm.wCustomerSource === undefined || crm.wCustomerSource === null) ? '' : crm.wCustomerSource._id,
+          wCustomerSourceIndex: util.pickerCurrentIndex(this.data.wCustomerSources_id, (crm.wCustomerSource === undefined || crm.wCustomerSource === null) ? '' : crm.wCustomerSource._id),
+
+          wProjectKind: (crm.wProjectKind === undefined || crm.wProjectKind === null) ? '' : crm.wProjectKind._id,
+          wProjectKindIndex: util.pickerCurrentIndex(this.data.wProjectKinds_id, (crm.wProjectKind === undefined || crm.wProjectKind === null) ? '' : crm.wProjectKind._id),
+
+          wProjectState: (crm.wProjectState === undefined || crm.wProjectState === null) ? '' : crm.wProjectState._id,
+          wProjectStateIndex: util.pickerCurrentIndex(this.data.wProjectStates_id, (crm.wProjectState === undefined || crm.wProjectState === null) ? '' : crm.wProjectState._id),
+
+          wSaleStage: (crm.wSaleStage === undefined || crm.wSaleStage === null) ? '' : crm.wSaleStage._id,
+          wSaleStageIndex: util.pickerCurrentIndex(this.data.wSaleStages_id, (crm.wSaleStage === undefined || crm.wSaleStage === null) ? '' : crm.wSaleStage._id),
+
+          wBiddingType: (crm.wBiddingType === undefined || crm.wBiddingType === null) ? '' : crm.wBiddingType._id,
+          wBiddingTypeIndex: util.pickerCurrentIndex(this.data.wBiddingTypes_id, (crm.wBiddingType === undefined || crm.wBiddingType === null) ? '' : crm.wBiddingType._id)
+
         })
+        
       } else {
         // 重新请求
+      }
+      // 如果负责人的ID不是当前用户ID，提示不能更新
+      if (wx.getStorageSync('_id') !== this.data.wProjectMan) {
+        wx.showModal({
+          content: '您正在浏览其他人的项目，如果您负责跟踪此项目(可以对此项目进行跟踪记录)',
+          showCancel: false,
+          success: function (res) {
+            if (res.confirm) {
+              console.log('权限不足')
+            }
+          }
+        })
       }
     }, () => {
       fail()
@@ -383,9 +422,19 @@ getProjectDetail: function (projectId) {
 },
   bindDelProject: function() {
     // 如果负责人的ID不是当前用户ID，提示不能删除
-
+    if (wx.getStorageSync('_id') !== this.data.wProjectMan ){
+      wx.showModal({
+        content: '您不可以删除其他人的项目',
+        showCancel: false,
+        success: function (res) {
+          if (res.confirm) {
+            console.log('权限不足')
+          }
+        }
+      })
+      return false
+    }
     // 负责人可选中删除此项目, 弹出选项是否删除
-
     this.openDelConfirm(this.data.projectId)
   }
 
