@@ -1,0 +1,56 @@
+<!--customer.wxml-->
+<form bindsubmit="bindFormSubmit">
+  <view class="customer">
+    <view class="page__bd">
+      <view class="weui-toptips weui-toptips_primary" wx:if="{{showTopTips}}" style='background:#1AAD19'>修改成功</view>
+
+      <view class="weui-cells weui-cells_after-title">
+
+        <view class="weui-cell">
+          <view class="weui-cell__bd">
+            <textarea name="currentTrackContent" class="weui-textarea" value='{{currentTrackContent}}' placeholder="请输入本次跟踪内容" height="3rem" />
+          </view>
+        </view>
+
+
+        <view class="weui-cell weui-cell_select">
+          <view class="weui-cell__hd weui-cell__hd_in-select-after">
+            <view class="weui-label">跟踪方式</view>
+          </view>
+          <view class="weui-cell__bd">
+            <picker bindchange="bindwTrackMethodChange" value="{{wTrackMethodIndex}}" range="{{wTrackMethods_name}}">
+              <view class="weui-select weui-select_in-select-after">{{wTrackMethods_name[wTrackMethodIndex]}}</view>
+            </picker>
+          </view>
+        </view>
+
+
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">下次联系时间</view>
+          </view>
+          <view class="weui-cell__bd">
+            <picker mode="date" value="{{nextContactDate}}" bindchange="bindNextContactDateChange">
+              <view class="weui-input">{{nextContactDate}}</view>
+            </picker>
+          </view>
+        </view>
+
+
+
+        <view class="weui-cell">
+          <view class="weui-cell__bd">
+            <textarea name="nextContactContent" value='{{nextContactContent}}' class="weui-textarea" placeholder="请输入下次联系内容" height="3rem" />
+          </view>
+        </view>
+
+      </view>
+
+      <view class="weui-btn-area" style='margin-bottom:1.3252rem'>
+        <button class="btn btn-default" form-type="submit" style='margin-bottom:20rpx'>更新</button>
+        <button class="btn btn-default" type="warn" bindtap="bindDelTrackRecord">删除</button>
+      </view>
+    </view>
+  </view>
+
+</form>

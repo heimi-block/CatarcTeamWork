@@ -1,0 +1,14 @@
+@import '../../../assets/css/weui.wxss';
+
+page {
+  background-color: #f8f8f8;
+  height: 100%
+}
+
+.customer{
+  height: 100%
+}
+
+.page__bd{
+  margin-bottom: 2rem;
+}

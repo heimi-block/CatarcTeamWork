@@ -1,0 +1,25 @@
+<!--login.wxml-->
+<view class='login-wrapper'>
+
+<view class='mt-1-3125 text-center'>
+<text style='solgan'>天津汽研院CRM</text>
+</view> 
+<view class='mt-1-3125'>
+<input bindinput='bindMobileInput' type='number' class="form-input" placeholder='你的手机号码'></input>
+</view>
+
+<view class='mt-1-3125'>
+<input bindinput='bindPasswordInput' type='password' class="form-input" placeholder='密码'></input>
+</view>
+
+<view class='mt-1-3125'>
+<text wx:if="{{errLoginTips}}" class='text-danger'>{{errMsg}}</text>
+</view>
+<view class='mt-1-3125'>
+<button bindtap='bindLogin' class='btn btn-default'>登入</button>
+</view>
+</view>
+
+<view class='footer'>
+<text class='copyright'>中国汽车技术研究中心©CRM v1.0.0</text>
+</view>

@@ -1,0 +1,29 @@
+<!--index.wxml-->
+<view style='padding:100rpx 0;'>
+  <view class="userinfo">
+    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
+    <block wx:else>
+      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+    </block>
+  </view>
+</view>
+
+
+<view class="page">
+  <view class="page__bd">
+    <view class="weui-cells weui-cells_after-title" style='margin-top:1.23rem'>
+      <view class="weui-cell">
+        <view class="weui-cell__bd" bindtap='bindClearWxStorage'>退出登录</view>
+      </view>
+    </view>
+
+    <view class="weui-cells weui-cells_after-title" style='margin-top:1.23rem'>
+      <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+        <view class="weui-cell__bd">天津汽研院CRM v1.0.0</view>
+        <!-- <view class="weui-cell__ft weui-cell__ft_in-access"></view> -->
+      </navigator>
+    </view>
+  </view>
+
+</view>
