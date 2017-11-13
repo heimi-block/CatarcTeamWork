@@ -207,14 +207,17 @@ Page({
                           wProjectKind: (crm.wProjectKind === undefined || crm.wProjectKind === null) ? '' : crm.wProjectKind._id,
                           wProjectKindIndex: util.pickerCurrentIndex(prevPage.data.wProjectKinds_id, (crm.wProjectKind === undefined || crm.wProjectKind === null) ? '' : crm.wProjectKind._id),
 
-                          wProjectState: (crm.wProjectState === undefined || crm.wProjectState === null) ? '' : crm.wProjectState._id,
-                          wProjectStateIndex: util.pickerCurrentIndex(prevPage.data.wProjectStates_id, (crm.wProjectState === undefined || crm.wProjectState === null) ? '' : crm.wProjectState._id),
+                          // wProjectState: (crm.wProjectState === undefined || crm.wProjectState === null) ? '' : crm.wProjectState._id,
+                          // wProjectStateIndex: util.pickerCurrentIndex(prevPage.data.wProjectStates_id, (crm.wProjectState === undefined || crm.wProjectState === null) ? '' : crm.wProjectState._id),
 
                           wSaleStage: (crm.wSaleStage === undefined || crm.wSaleStage === null) ? '' : crm.wSaleStage._id,
                           wSaleStageIndex: util.pickerCurrentIndex(prevPage.data.wSaleStages_id, (crm.wSaleStage === undefined || crm.wSaleStage === null) ? '' : crm.wSaleStage._id),
 
                           wBiddingType: (crm.wBiddingType === undefined || crm.wBiddingType === null) ? '' : crm.wBiddingType._id,
-                          wBiddingTypeIndex: util.pickerCurrentIndex(prevPage.data.wBiddingTypes_id, (crm.wBiddingType === undefined || crm.wBiddingType === null) ? '' : crm.wBiddingType._id)
+                          wBiddingTypeIndex: util.pickerCurrentIndex(prevPage.data.wBiddingTypes_id, (crm.wBiddingType === undefined || crm.wBiddingType === null) ? '' : crm.wBiddingType._id),
+
+                          wPreSaleMan: (crm.wPreSaleMan === undefined || crm.wPreSaleMan === null) ? '' : crm.wPreSaleMan._id,
+                          wPreSaleManIndex: util.pickerCurrentIndex(prevPage.data.wPreSaleMans_id, (crm.wPreSaleMan === undefined || crm.wPreSaleMan === null) ? '' : crm.wPreSaleMan._id),
 
                         })
 

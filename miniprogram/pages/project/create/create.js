@@ -4,13 +4,15 @@ Page({
   data: {
     showTopTips: false,
     customerName: '',
+    createdAtDate: '',
     wCustomerAgencyName: '',
     wCustomerSource: '',
     projectName: '',
     wProjectKind: '',
-    wProjectState: '',
+    // wProjectState: '',
     wSaleStage: '',
     wBiddingType: '',
+    wPreSaleMan: '',
     competitor: '',
     bidEvaluationMethod: '',
     bidPlanDate: '',
@@ -21,7 +23,7 @@ Page({
     wCustomerAgencyNames_name: [],
     wCustomerAgencyNames_id: [],
     wCustomerAgencyNameIndex: 0,
-    // 客户来源 wCustomerSource
+    // 客户来源 wCustomerSource -> 项目渠道
     wCustomerSources_name: [],
     wCustomerSources_id: [],
     wCustomerSourceIndex: 0,
@@ -30,9 +32,9 @@ Page({
     wProjectKinds_id: [],
     wProjectKindIndex: 0,
     // 项目状态 wProjectState
-    wProjectStates_name: [],
-    wProjectStates_id: [],
-    wProjectStateIndex: 0,
+    // wProjectStates_name: [],
+    // wProjectStates_id: [],
+    // wProjectStateIndex: 0,
     // 销售阶段 wSaleStage
     wSaleStages_name: [],
     wSaleStages_id: [],
@@ -40,7 +42,16 @@ Page({
     // 招标方式 wBiddingType
     wBiddingTypes_name: [],
     wBiddingTypes_id: [],
-    wBiddingTypeIndex: 0
+    wBiddingTypeIndex: 0,
+    // 售前人员 wPreSaleMan
+    wPreSaleMans_name: [],
+    wPreSaleMans_id: [],
+    wPreSaleManIndex: 0
+  },
+  bindCreatedAtDateChange: function (e) {
+    this.setData({
+      createdAtDate: e.detail.value
+    })
   },
   bindBidPlanDateChange: function (e) {
     this.setData({
@@ -80,14 +91,14 @@ Page({
     })
   },
   // wProjectState 
-  bindwProjectStateChange: function (e) {
-    console.log('picker wProjectState 发生选择改变，携带值为', e.detail.value);
-    console.log('当前选中的值为', this.data.wProjectStates_id[e.detail.value]);
-    this.setData({
-      wProjectStateIndex: e.detail.value,
-      wProjectState: this.data.wProjectStates_id[e.detail.value]
-    })
-  },
+  // bindwProjectStateChange: function (e) {
+  //   console.log('picker wProjectState 发生选择改变，携带值为', e.detail.value);
+  //   console.log('当前选中的值为', this.data.wProjectStates_id[e.detail.value]);
+  //   this.setData({
+  //     wProjectStateIndex: e.detail.value,
+  //     wProjectState: this.data.wProjectStates_id[e.detail.value]
+  //   })
+  // },
   // wSaleStage 
   bindwSaleStageChange: function (e) {
     console.log('picker wSaleStage 发生选择改变，携带值为', e.detail.value);
@@ -104,6 +115,15 @@ Page({
     this.setData({
       wBiddingTypeIndex: e.detail.value,
       wBiddingType: this.data.wBiddingTypes_id[e.detail.value]
+    })
+  },
+  // wPreSaleMan
+  bindwPreSaleManChange: function (e) {
+    console.log('picker wPreSaleMan 发生选择改变，携带值为', e.detail.value);
+    console.log('当前选中的值为', this.data.wPreSaleMans_id[e.detail.value]);
+    this.setData({
+      wPreSaleManIndex: e.detail.value,
+      wPreSaleMan: this.data.wPreSaleMans_id[e.detail.value]
     })
   },
   bindCustomerNameInput: function (e) {
@@ -140,16 +160,17 @@ Page({
     this.getwCustomerAgencyName()
     this.getwCustomerSource()
     this.getwProjectKind()
-    this.getwProjectState()
+    // this.getwProjectState()
     this.getwSaleStage()
     this.getwBiddingType()
+    this.getwPreSaleMan()
   },
   // 获取动态维护的w属性
   getwCustomerSource: function () {
     let token = wx.getStorageSync('token')
     network.requestLoading('/api/wCustomerSource', 'GET', '', { 'Content-Type': 'application/x-www-form-urlencoded', 'X-MC-TOKEN': 'Bearer ' + token }, '', (res) => {
       // 数据请求成功，res
-      const wCustomerSources_name = ['请选择客户来源']
+      const wCustomerSources_name = ['请选择项目渠道']
       const wCustomerSources_id = ['']
       res.result.data.forEach(function (e) {
         wCustomerSources_name.push(e.name)
@@ -181,24 +202,24 @@ Page({
       fail()
     })
   },
-  getwProjectState: function () {
-    let token = wx.getStorageSync('token')
-    network.requestLoading('/api/wProjectState', 'GET', '', { 'Content-Type': 'application/x-www-form-urlencoded', 'X-MC-TOKEN': 'Bearer ' + token }, '', (res) => {
-      // 数据请求成功，res
-      const wProjectStates_name = ['请选择项目状态']
-      const wProjectStates_id = ['']
-      res.result.data.forEach(function (e) {
-        wProjectStates_name.push(e.name)
-        wProjectStates_id.push(e._id)
-      })
-      this.setData({
-        wProjectStates_name,
-        wProjectStates_id
-      })
-    }, () => {
-      fail()
-    })
-  },
+  // getwProjectState: function () {
+  //   let token = wx.getStorageSync('token')
+  //   network.requestLoading('/api/wProjectState', 'GET', '', { 'Content-Type': 'application/x-www-form-urlencoded', 'X-MC-TOKEN': 'Bearer ' + token }, '', (res) => {
+  //     // 数据请求成功，res
+  //     const wProjectStates_name = ['请选择项目状态']
+  //     const wProjectStates_id = ['']
+  //     res.result.data.forEach(function (e) {
+  //       wProjectStates_name.push(e.name)
+  //       wProjectStates_id.push(e._id)
+  //     })
+  //     this.setData({
+  //       wProjectStates_name,
+  //       wProjectStates_id
+  //     })
+  //   }, () => {
+  //     fail()
+  //   })
+  // },
   getwCustomerAgencyName: function () {
     let token = wx.getStorageSync('token')
     network.requestLoading('/api/wCustomerAgencyName', 'GET', '', { 'Content-Type': 'application/x-www-form-urlencoded', 'X-MC-TOKEN': 'Bearer ' + token }, '', (res) => {
@@ -253,18 +274,38 @@ Page({
       fail()
     })
   },
+  getwPreSaleMan: function () {
+    let token = wx.getStorageSync('token')
+    network.requestLoading('/api/wPreSaleMan', 'GET', '', { 'Content-Type': 'application/x-www-form-urlencoded', 'X-MC-TOKEN': 'Bearer ' + token }, '', (res) => {
+      // 数据请求成功，res
+      const wPreSaleMans_name = ['请选择售前人员']
+      const wPreSaleMans_id = ['']
+      res.result.data.forEach(function (e) {
+        wPreSaleMans_name.push(e.name)
+        wPreSaleMans_id.push(e._id)
+      })
+      this.setData({
+        wPreSaleMans_name,
+        wPreSaleMans_id
+      })
+    }, () => {
+      fail()
+    })
+  },
   showTopTips: function () {
     var that = this;
     const params = {}
     params.wProjectMan = wx.getStorageSync('_id')
     params.customerName = this.data.customerName
+    params.createdAt = this.data.createdAtDate
     params.wCustomerAgencyName = this.data.wCustomerAgencyName
     params.wCustomerSource = this.data.wCustomerSource
     params.projectName = this.data.projectName
     params.wProjectKind = this.data.wProjectKind
-    params.wProjectState = this.data.wProjectState
+    // params.wProjectState = this.data.wProjectState
     params.wSaleStage = this.data.wSaleStage
     params.wBiddingType = this.data.wBiddingType
+    params.wPreSaleMan = this.data.wPreSaleMan
     params.competitor = this.data.competitor
     params.bidEvaluationMethod = this.data.bidEvaluationMethod
     params.bidPlanDate = this.data.bidPlanDate

@@ -6,12 +6,13 @@ Page({
     showTopTips: false,
     projectId: '',
     projectCoding: '',
+    createdAtDate: '',
     customerName: '',
     wCustomerAgencyName: '',
     wCustomerSource: '',
     projectName: '',
     wProjectKind: '',
-    wProjectState: '',
+    // wProjectState: '',
     wSaleStage: '',
     wBiddingType: '',
     competitor: '',
@@ -35,9 +36,9 @@ Page({
     wProjectKinds_id: [],
     wProjectKindIndex: 0,
     // 项目状态 wProjectState
-    wProjectStates_name: [],
-    wProjectStates_id: [],
-    wProjectStateIndex: 0,
+    // wProjectStates_name: [],
+    // wProjectStates_id: [],
+    // wProjectStateIndex: 0,
     // 销售阶段 wSaleStage
     wSaleStages_name: [],
     wSaleStages_id: [],
@@ -50,6 +51,11 @@ Page({
   bindBidPlanDateChange: function (e) {
     this.setData({
       bidPlanDate: e.detail.value
+    })
+  },
+  bindCreatedAtDateChange: function (e) {
+    this.setData({
+      createdAtDate: e.detail.value
     })
   },
   bindContractSignDateChange: function (e) {
@@ -85,14 +91,14 @@ Page({
     })
   },
   // wProjectState 
-  bindwProjectStateChange: function (e) {
-    console.log('picker wProjectState 发生选择改变，携带值为', e.detail.value);
-    console.log('当前选中的值为', this.data.wProjectStates_id[e.detail.value]);
-    this.setData({
-      wProjectStateIndex: e.detail.value,
-      wProjectState: this.data.wProjectStates_id[e.detail.value]
-    })
-  },
+  // bindwProjectStateChange: function (e) {
+  //   console.log('picker wProjectState 发生选择改变，携带值为', e.detail.value);
+  //   console.log('当前选中的值为', this.data.wProjectStates_id[e.detail.value]);
+  //   this.setData({
+  //     wProjectStateIndex: e.detail.value,
+  //     wProjectState: this.data.wProjectStates_id[e.detail.value]
+  //   })
+  // },
   // wSaleStage 
   bindwSaleStageChange: function (e) {
     console.log('picker wSaleStage 发生选择改变，携带值为', e.detail.value);
@@ -109,6 +115,15 @@ Page({
     this.setData({
       wBiddingTypeIndex: e.detail.value,
       wBiddingType: this.data.wBiddingTypes_id[e.detail.value]
+    })
+  },
+  // wPreSaleMan
+  bindwPreSaleManChange: function (e) {
+    console.log('picker wPreSaleMan 发生选择改变，携带值为', e.detail.value);
+    console.log('当前选中的值为', this.data.wPreSaleMans_id[e.detail.value]);
+    this.setData({
+      wPreSaleManIndex: e.detail.value,
+      wPreSaleMan: this.data.wPreSaleMans_id[e.detail.value]
     })
   },
   bindCustomerNameInput: function (e) {
@@ -140,10 +155,10 @@ Page({
     this.getwCustomerAgencyName()
     this.getwCustomerSource()
     this.getwProjectKind()
-    this.getwProjectState()
+    // this.getwProjectState()
     this.getwSaleStage()
     this.getwBiddingType()
-
+    this.getwPreSaleMan()
     console.log(options.projectId)
     const projectId = options.projectId
     this.setData({
@@ -156,7 +171,7 @@ Page({
     let token = wx.getStorageSync('token')
     network.requestLoading('/api/wCustomerSource', 'GET', '', { 'Content-Type': 'application/x-www-form-urlencoded', 'X-MC-TOKEN': 'Bearer ' + token }, '', (res) => {
       // 数据请求成功，res
-      const wCustomerSources_name = ['请选择客户来源']
+      const wCustomerSources_name = ['请选择项目渠道']
       const wCustomerSources_id = ['']
       res.result.data.forEach(function (e) {
         wCustomerSources_name.push(e.name)
@@ -188,24 +203,24 @@ Page({
       fail()
     })
   },
-  getwProjectState: function () {
-    let token = wx.getStorageSync('token')
-    network.requestLoading('/api/wProjectState', 'GET', '', { 'Content-Type': 'application/x-www-form-urlencoded', 'X-MC-TOKEN': 'Bearer ' + token }, '', (res) => {
-      // 数据请求成功，res
-      const wProjectStates_name = ['请选择项目状态']
-      const wProjectStates_id = ['']
-      res.result.data.forEach(function (e) {
-        wProjectStates_name.push(e.name)
-        wProjectStates_id.push(e._id)
-      })
-      this.setData({
-        wProjectStates_name,
-        wProjectStates_id
-      })
-    }, () => {
-      fail()
-    })
-  },
+  // getwProjectState: function () {
+  //   let token = wx.getStorageSync('token')
+  //   network.requestLoading('/api/wProjectState', 'GET', '', { 'Content-Type': 'application/x-www-form-urlencoded', 'X-MC-TOKEN': 'Bearer ' + token }, '', (res) => {
+  //     // 数据请求成功，res
+  //     const wProjectStates_name = ['请选择项目状态']
+  //     const wProjectStates_id = ['']
+  //     res.result.data.forEach(function (e) {
+  //       wProjectStates_name.push(e.name)
+  //       wProjectStates_id.push(e._id)
+  //     })
+  //     this.setData({
+  //       wProjectStates_name,
+  //       wProjectStates_id
+  //     })
+  //   }, () => {
+  //     fail()
+  //   })
+  // },
   getwCustomerAgencyName: function () {
     let token = wx.getStorageSync('token')
     network.requestLoading('/api/wCustomerAgencyName', 'GET', '', { 'Content-Type': 'application/x-www-form-urlencoded', 'X-MC-TOKEN': 'Bearer ' + token }, '', (res) => {
@@ -260,6 +275,24 @@ Page({
       fail()
     })
   },
+  getwPreSaleMan: function () {
+    let token = wx.getStorageSync('token')
+    network.requestLoading('/api/wPreSaleMan', 'GET', '', { 'Content-Type': 'application/x-www-form-urlencoded', 'X-MC-TOKEN': 'Bearer ' + token }, '', (res) => {
+      // 数据请求成功，res
+      const wPreSaleMans_name = ['请选择售前人员']
+      const wPreSaleMans_id = ['']
+      res.result.data.forEach(function (e) {
+        wPreSaleMans_name.push(e.name)
+        wPreSaleMans_id.push(e._id)
+      })
+      this.setData({
+        wPreSaleMans_name,
+        wPreSaleMans_id
+      })
+    }, () => {
+      fail()
+    })
+  },
   // 更新项目，text-area微信6.3bug,需采用此方式
   bindFormSubmit: function (e) {
     // 如果负责人的ID不是当前用户ID，提示不能更新
@@ -282,11 +315,13 @@ Page({
     params.wCustomerSource = this.data.wCustomerSource
     params.projectName = this.data.projectName
     params.wProjectKind = this.data.wProjectKind
-    params.wProjectState = this.data.wProjectState
+    // params.wProjectState = this.data.wProjectState
     params.wSaleStage = this.data.wSaleStage
     params.wBiddingType = this.data.wBiddingType
+    params.wPreSaleMan = this.data.wPreSaleMan
     params.competitor = e.detail.value.competitor
     params.bidEvaluationMethod = this.data.bidEvaluationMethod
+    params.createdAt = this.data.createdAtDate
     params.bidPlanDate = this.data.bidPlanDate
     params.forecastOrderMoney = this.data.forecastOrderMoney
     params.contractSignDate = this.data.contractSignDate
@@ -325,6 +360,7 @@ Page({
             return e
           }),
           projectCoding: crm.projectCoding,
+          createdAtDate: crm.createdAt.substr(0, 10),
           customerName: crm.customerName,
           projectName: crm.projectName,
           competitor: crm.competitor,
@@ -345,14 +381,17 @@ Page({
           wProjectKind: (crm.wProjectKind === undefined || crm.wProjectKind === null) ? '' : crm.wProjectKind._id,
           wProjectKindIndex: util.pickerCurrentIndex(this.data.wProjectKinds_id, (crm.wProjectKind === undefined || crm.wProjectKind === null) ? '' : crm.wProjectKind._id),
 
-          wProjectState: (crm.wProjectState === undefined || crm.wProjectState === null) ? '' : crm.wProjectState._id,
-          wProjectStateIndex: util.pickerCurrentIndex(this.data.wProjectStates_id, (crm.wProjectState === undefined || crm.wProjectState === null) ? '' : crm.wProjectState._id),
+          // wProjectState: (crm.wProjectState === undefined || crm.wProjectState === null) ? '' : crm.wProjectState._id,
+          // wProjectStateIndex: util.pickerCurrentIndex(this.data.wProjectStates_id, (crm.wProjectState === undefined || crm.wProjectState === null) ? '' : crm.wProjectState._id),
 
           wSaleStage: (crm.wSaleStage === undefined || crm.wSaleStage === null) ? '' : crm.wSaleStage._id,
           wSaleStageIndex: util.pickerCurrentIndex(this.data.wSaleStages_id, (crm.wSaleStage === undefined || crm.wSaleStage === null) ? '' : crm.wSaleStage._id),
 
           wBiddingType: (crm.wBiddingType === undefined || crm.wBiddingType === null) ? '' : crm.wBiddingType._id,
-          wBiddingTypeIndex: util.pickerCurrentIndex(this.data.wBiddingTypes_id, (crm.wBiddingType === undefined || crm.wBiddingType === null) ? '' : crm.wBiddingType._id)
+          wBiddingTypeIndex: util.pickerCurrentIndex(this.data.wBiddingTypes_id, (crm.wBiddingType === undefined || crm.wBiddingType === null) ? '' : crm.wBiddingType._id),
+
+          wPreSaleMan: (crm.wPreSaleMan === undefined || crm.wPreSaleMan === null) ? '' : crm.wPreSaleMan._id,
+          wPreSaleManIndex: util.pickerCurrentIndex(this.data.wPreSaleMans_id, (crm.wPreSaleMan === undefined || crm.wPreSaleMan === null) ? '' : crm.wPreSaleMan._id)
 
         })
 

@@ -28,7 +28,7 @@
 
         <view class="weui-cell weui-cell_select">
           <view class="weui-cell__hd weui-cell__hd_in-select-after">
-            <view class="weui-label">客户来源</view>
+            <view class="weui-label">项目渠道</view>
           </view>
           <view class="weui-cell__bd">
             <picker bindchange="bindwCustomerSourceChange" value="{{wCustomerSourceIndex}}" range="{{wCustomerSources_name}}">
@@ -45,7 +45,16 @@
             <input bindinput='bindProjectNameInput' class="weui-input" placeholder="请输入项目名称" />
           </view>
         </view>
-
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">创建日期</view>
+          </view>
+          <view class="weui-cell__bd">
+            <picker mode="date" value="{{createdAtDate}}" bindchange="bindCreatedAtDateChange">
+              <view class="weui-input">{{createdAtDate}}</view>
+            </picker>
+          </view>
+        </view>
         <view class="weui-cell weui-cell_select">
           <view class="weui-cell__hd weui-cell__hd_in-select-after">
             <view class="weui-label">项目类型</view>
@@ -57,7 +66,7 @@
           </view>
         </view>
 
-        <view class="weui-cell weui-cell_select">
+        <!-- <view class="weui-cell weui-cell_select">
           <view class="weui-cell__hd weui-cell__hd_in-select-after">
             <view class="weui-label">项目状态</view>
           </view>
@@ -66,7 +75,7 @@
               <view class="weui-select weui-select_in-select-after">{{wProjectStates_name[wProjectStateIndex]}}</view>
             </picker>
           </view>
-        </view>
+        </view> -->
 
         <view class="weui-cell weui-cell_select">
           <view class="weui-cell__hd weui-cell__hd_in-select-after">
@@ -89,6 +98,18 @@
             </picker>
           </view>
         </view>
+
+        <view class="weui-cell weui-cell_select">
+          <view class="weui-cell__hd weui-cell__hd_in-select-after">
+            <view class="weui-label">售前人员</view>
+          </view>
+          <view class="weui-cell__bd">
+            <picker bindchange="bindwPreSaleManChange" value="{{wPreSaleManIndex}}" range="{{wPreSaleMans_name}}">
+              <view class="weui-select weui-select_in-select-after">{{wPreSaleMans_name[wPreSaleManIndex]}}</view>
+            </picker>
+          </view>
+        </view>
+        
 
         <view class="weui-cell">
           <view class="weui-cell__bd">
