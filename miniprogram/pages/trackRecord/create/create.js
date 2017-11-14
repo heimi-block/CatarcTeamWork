@@ -4,6 +4,7 @@ const util = require('./../../../utils/util.js')
 Page({
   data: {
     showTopTips: false,
+    createdAtDate: '',
     wTrackMethod: '',
     nextContactDate: '',
     currentTrackContent: '',
@@ -12,6 +13,11 @@ Page({
     wTrackMethods_name: [],
     wTrackMethods_id: [],
     wTrackMethodIndex: 0,
+  },
+  bindCreatedAtDateChange: function (e) {
+    this.setData({
+      createdAtDate: e.detail.value
+    })
   },
   bindNextContactDateChange: function (e) {
     this.setData({
@@ -56,10 +62,19 @@ Page({
     const params = {}
     params.ofProject = this.data.ofProject
     params.wTrackMethod = this.data.wTrackMethod
+    params.createdAt = this.data.createdAtDate
     params.nextContactDate = this.data.nextContactDate
     params.nextContactContent = e.detail.value.nextContactContent
     params.trackMan = wx.getStorageSync('_id')
     params.currentTrackContent = e.detail.value.currentTrackContent
+
+    if (params.createdAt === '') {
+      wx.showModal({
+        content: '请选择跟踪日期',
+        showCancel: false
+      })
+      return false
+    }
 
     if (params.currentTrackContent === '') {
       wx.showModal({
@@ -72,22 +87,6 @@ Page({
     if (params.wTrackMethod === '') {
       wx.showModal({
         content: '请选择跟踪方式',
-        showCancel: false
-      })
-      return false
-    }
-
-    if (params.nextContactDate === '') {
-      wx.showModal({
-        content: '请选择下次联系时间',
-        showCancel: false
-      })
-      return false
-    }
-
-    if (params.nextContactContent === '') {
-      wx.showModal({
-        content: '请选择下次联系内容',
         showCancel: false
       })
       return false

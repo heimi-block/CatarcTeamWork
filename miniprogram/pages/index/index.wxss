@@ -1,6 +1,8 @@
 /**index.wxss**/
 @import '../../assets/css/weui.wxss';
-
+.page{
+padding: 10px;
+}
 .userinfo {
   display: flex;
   flex-direction: column;
@@ -21,3 +23,28 @@
 .usermotto {
   margin-top: 200px;
 }
+
+.weui-panel{
+border-radius:10px 10px 0px 0px;
+box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
+}
+
+.weui-panel:before {
+ border-top:0rpx;
+}
+.weui-panel__hd:after {
+   border-bottom:0rpx;
+}
+
+.weui-panel__bd{
+   border-top:1rpx solid #e6ebf5;
+}
+
+.weui-panel__hd {
+font-size:16px;
+}
+
+/* #e6ebf5 */
+
+
+

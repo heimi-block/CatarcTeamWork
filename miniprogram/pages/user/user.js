@@ -42,6 +42,11 @@ Page({
       url: '../../pages/login/login',
     })
   },
+  bindUpdatePwd: function() {
+    wx.navigateTo({
+      url: '../../pages/user/pwd/pwd',
+    })
+  },
   getUserInfo: function(e) {
     console.log(e)
     app.globalData.userInfo = e.detail.userInfo

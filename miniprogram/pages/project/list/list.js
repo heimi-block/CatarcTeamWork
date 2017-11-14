@@ -11,6 +11,12 @@ Page({
     projectListMe: [],
     projectListAll: []
   },
+  //事件处理函数
+  bindCreateCustomer: function () {
+    wx.navigateTo({
+      url: '../../../pages/project/create/create',
+    })
+  },
   onShow: function () {
     this.getProjectAll()
   },

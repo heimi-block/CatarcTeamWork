@@ -18,6 +18,7 @@ Page({
     competitor: '',
     bidEvaluationMethod: '',
     bidPlanDate: '',
+    wPreSaleMan: '',
     forecastOrderMoney: '',
     contractSignDate: '',
     actualSignMoney: '',
@@ -46,7 +47,11 @@ Page({
     // 招标方式 wBiddingType
     wBiddingTypes_name: [],
     wBiddingTypes_id: [],
-    wBiddingTypeIndex: 0
+    wBiddingTypeIndex: 0,
+    // 售前人员 wPreSaleMan
+    wPreSaleMans_name: [],
+    wPreSaleMans_id: [],
+    wPreSaleManIndex: 0
   },
   bindBidPlanDateChange: function (e) {
     this.setData({

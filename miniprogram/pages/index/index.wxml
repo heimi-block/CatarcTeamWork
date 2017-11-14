@@ -5,36 +5,30 @@
       <span class="weui-badge" style="margin-left:5px;top:-2px;position:relative">
         {{todoCount}}</span>
     </view>
-    <view wx:if="{{todoProjects.length>0}}">
+    <view wx:if="{{todoProjects.length>0}}" style="margin-top: 35rpx;">
       <block wx:for="{{todoProjects}}" wx:for-index="idx" wx:for-item="item">
         <navigator url='../../pages/project/detail/detail?projectId={{item._id}}'>
           <view class="weui-panel" style='margin-bottom:30rpx'>
-            <view class="weui-panel__hd" style='color:#1da1f2;'>{{item.wCustomerAgencyName.name}}</view>
+            <view class="weui-panel__hd" style='color:#1da1f2;'>{{item.wCustomerAgencyName.name}} </view>
             <view class="weui-panel__bd">
               <view class="weui-media-box weui-media-box_text">
-                <view class="weui-media-box__title weui-media-box__title_in-text">{{item.projectName}}</view>
-
-                <view wx:if="{{item.trackRecords.length>=1}}">
-                  <view class="weui-media-box__info" style='color:#000'>
-                    <view class="weui-media-box__info__meta">下次联系时间</view>
-                    <view class="weui-media-box__info__meta">{{item.trackRecords[item.trackRecords.length-1].nextContactDate}}</view>
-                  </view>
-                  <view class="weui-media-box__info" style='color:#000'>
-                    <view class="weui-media-box__info__meta">下次联系内容</view>
-                  </view>
-                  <view class="weui-media-box__desc" style='color:#333'>{{item.trackRecords[item.trackRecords.length-1].nextContactContent}}</view>
-
-                  <view class="weui-media-box__info">
-                    <view class="weui-media-box__info__meta">上次联系时间</view>
-                    <view class="weui-media-box__info__meta">{{item.trackRecords[item.trackRecords.length-1].createdAt}}</view>
-                  </view>
-                  <view class="weui-media-box__info">
-                    <view class="weui-media-box__info__meta">上次联系内容</view>
-                  </view>
-                  <view class="weui-media-box__desc">{{item.trackRecords[item.trackRecords.length-1].currentTrackContent}}</view>
+                <view class="weui-media-box__title weui-media-box__title_in-text">{{item.projectName}}  
+                <span class="weui-badge" style="margin-left:5px;top:-2px;position:relative;background:#06d79c">{{item.wSaleStage.name}}</span>
+                       <span class="weui-badge" style="margin-left:5px;top:-2px;position:relative;background:#398bf7">{{item.wBiddingType.name}}</span>
+                <span class="weui-badge" style="margin-left:5px;top:-2px;position:relative;background:#ffb22b">{{item.wPreSaleMan.name}}</span>
+                
                 </view>
-
-              </view>
+            <view class="weui-panel__bd" wx:if="{{item.trackRecords.length>=1}}">
+                <view class="weui-media-box weui-media-box_text" >
+                    <view class="weui-media-box__title weui-media-box__title_in-text">待执行记录<span class="weui-badge" style="margin-left:5px;top:2px;position:relative;background:#ef5350;float:right">⏱ {{item.trackRecords[item.trackRecords.length-1].nextContactDate}}</span></view>
+                    <view class="weui-media-box__desc">{{item.trackRecords[item.trackRecords.length-1].nextContactContent}}</view>
+                </view>
+                <view class="weui-media-box weui-media-box_text">
+                    <view class="weui-media-box__title weui-media-box__title_in-text">上次跟踪记录<span class="weui-badge" style="margin-left:5px;top:2px;position:relative;background:#67757c;float:right">⏱ {{item.trackRecords[item.trackRecords.length-1].createdAt}}</span></view>
+                    <view class="weui-media-box__desc">{{item.trackRecords[item.trackRecords.length-1].currentTrackContent}}</view>
+                </view>
+            </view>
+           </view>
             </view>
           </view>
         </navigator>
@@ -47,7 +41,4 @@
     </view>
 
   </view>
-</view>
-<view bindtap='bindCreateCustomer' style='bottom:40rpx;position:fixed;right:40rpx'>
-  <image src='../../assets/img/add.png' style='width:100rpx;height:100rpx'></image>
 </view>

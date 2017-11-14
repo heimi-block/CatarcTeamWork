@@ -283,8 +283,8 @@ Page({
           wProjectKind: (crm.wProjectKind === undefined || crm.wProjectKind === null) ? '' : crm.wProjectKind._id,
           wProjectKindIndex: util.pickerCurrentIndex(prevPage.data.wProjectKinds_id, (crm.wProjectKind === undefined || crm.wProjectKind === null) ? '' : crm.wProjectKind._id),
 
-          wProjectState: (crm.wProjectState === undefined || crm.wProjectState === null) ? '' : crm.wProjectState._id,
-          wProjectStateIndex: util.pickerCurrentIndex(prevPage.data.wProjectStates_id, (crm.wProjectState === undefined || crm.wProjectState === null) ? '' : crm.wProjectState._id),
+          // wProjectState: (crm.wProjectState === undefined || crm.wProjectState === null) ? '' : crm.wProjectState._id,
+          // wProjectStateIndex: util.pickerCurrentIndex(prevPage.data.wProjectStates_id, (crm.wProjectState === undefined || crm.wProjectState === null) ? '' : crm.wProjectState._id),
 
           wSaleStage: (crm.wSaleStage === undefined || crm.wSaleStage === null) ? '' : crm.wSaleStage._id,
           wSaleStageIndex: util.pickerCurrentIndex(prevPage.data.wSaleStages_id, (crm.wSaleStage === undefined || crm.wSaleStage === null) ? '' : crm.wSaleStage._id),

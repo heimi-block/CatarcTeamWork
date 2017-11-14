@@ -1,0 +1,44 @@
+<!--customer.wxml-->
+<form bindsubmit="bindFormSubmit">
+  <view class="customer" style="margin-top: 35rpx;">
+    <view class="page__bd">
+      <view class="weui-toptips weui-toptips_primary" wx:if="{{showTopTips}}" style='background:#1AAD19'>密码修改成功</view>
+
+      <view class="weui-cells weui-cells_after-title">
+
+               <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">旧密码</view>
+          </view>
+          <view class="weui-cell__bd">
+            <input type="password" bindinput='bindOldPwdInput' class="weui-input" placeholder="请输入您的旧密码" />
+          </view>
+        </view>
+
+               <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">新密码</view>
+          </view>
+          <view class="weui-cell__bd">
+            <input type="password" bindinput='bindNewPwdOneInput' class="weui-input" placeholder="请输入您的新密码" />
+          </view>
+        </view>
+
+               <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label"></view>
+          </view>
+          <view class="weui-cell__bd">
+            <input type="password" bindinput='bindNewPwdTwoInput' class="weui-input" placeholder="请再次输入您的新密码" />
+          </view>
+        </view>
+
+      </view>
+
+      <view class="weui-btn-area" style='margin-bottom:1.3252rem'>
+        <button class="btn btn-default" form-type="submit">修改</button>
+      </view>
+    </view>
+  </view>
+
+</form>

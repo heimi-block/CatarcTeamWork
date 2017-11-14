@@ -8,7 +8,9 @@ page,
 .page__bd{
     padding-bottom: 0;
 }
-
+.weui-form-preview__value_in-hd{
+  font-size: 18px
+}
 .weui-navbar__item.weui-bar__item_on {
 color:#1da1f2;
 }
@@ -27,4 +29,19 @@ background-color: #1da1f2;
 
 .weui-navbar{
   background: #fff;
+  border-bottom: 1rpx solid #e6ebf5;
+}
+
+.weui-form-preview{
+ box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
+ border:1rpx solid #e6ebf5;
+}
+.weui-form-preview:before{
+  border-top: 0px;
+}
+.weui-form-preview__hd:after {
+  border-bottom: 1rpx solid #e6ebf5;
+}
+.weui-form-preview:after{
+    border-bottom: 0px;
 }
