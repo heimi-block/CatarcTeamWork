@@ -20,12 +20,12 @@
                 </view>
             <view class="weui-panel__bd" wx:if="{{item.trackRecords.length>=1}}">
                 <view class="weui-media-box weui-media-box_text" >
-                    <view class="weui-media-box__title weui-media-box__title_in-text">待执行记录<span class="weui-badge" style="margin-left:5px;top:2px;position:relative;background:#ef5350;float:right">⏱ {{item.trackRecords[item.trackRecords.length-1].nextContactDate}}</span></view>
-                    <view class="weui-media-box__desc">{{item.trackRecords[item.trackRecords.length-1].nextContactContent}}</view>
+                    <view class="weui-media-box__title weui-media-box__title_in-text">待执行记录<span class="weui-badge" style="margin-left:5px;top:2px;position:relative;background:#ef5350;float:right">⏱ {{item.trackRecords[0].nextContactDate}}</span></view>
+                    <view class="weui-media-box__desc">{{item.trackRecords[0].nextContactContent}}</view>
                 </view>
                 <view class="weui-media-box weui-media-box_text">
-                    <view class="weui-media-box__title weui-media-box__title_in-text">上次跟踪记录<span class="weui-badge" style="margin-left:5px;top:2px;position:relative;background:#67757c;float:right">⏱ {{item.trackRecords[item.trackRecords.length-1].createdAt}}</span></view>
-                    <view class="weui-media-box__desc">{{item.trackRecords[item.trackRecords.length-1].currentTrackContent}}</view>
+                    <view class="weui-media-box__title weui-media-box__title_in-text">上次跟踪记录<span class="weui-badge" style="margin-left:5px;top:2px;position:relative;background:#67757c;float:right">⏱ {{item.trackRecords[0].createdAt}}</span></view>
+                    <view class="weui-media-box__desc">{{item.trackRecords[0].currentTrackContent}}</view>
                 </view>
             </view>
            </view>

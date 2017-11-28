@@ -9,7 +9,7 @@ Page({
     sliderOffset: 0,
     sliderLeft: 0,
     projectListMe: [],
-    projectListAll: []
+    projectListAll: [],
   },
   //事件处理函数
   bindCreateCustomer: function () {
@@ -39,14 +39,14 @@ Page({
   },
   getProjectAll: function () {
     let token = wx.getStorageSync('token')
-    network.requestLoading('/api/project', 'GET', '', { 'Content-Type': 'application/x-www-form-urlencoded', 'X-MC-TOKEN': 'Bearer ' + token }, '', (res) => {
+    network.requestLoading('/api/project?isPaging=false', 'GET', '', { 'Content-Type': 'application/x-www-form-urlencoded', 'X-MC-TOKEN': 'Bearer ' + token }, '', (res) => {
       // 数据请求成功，res
       console.log(res)
       if (res.code === 1) {
         this.setData({
           projectListAll: res.result.data,
           projectListMe: res.result.data.filter(e => {
-            return e.wProjectMan._id === wx.getStorageSync('_id')
+            return ((e.wProjectMan._id === wx.getStorageSync('_id')) && (e.wSaleStage.name !== '6-合同签署完成') && (e.wSaleStage.name !== '7-项目输单') && (e.wSaleStage.name !== '8-项目暂停或取消'))
           })
         })
       } else {

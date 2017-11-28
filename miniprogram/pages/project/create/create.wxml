@@ -8,10 +8,10 @@
 
         <view class="weui-cell weui-cell_input">
           <view class="weui-cell__hd">
-            <view class="weui-label">客户简称</view>
+            <view class="weui-label">项目简称</view>
           </view>
           <view class="weui-cell__bd">
-            <input bindinput='bindCustomerNameInput' class="weui-input" placeholder="请输入客户简称" />
+            <input bindinput='bindCustomerNameInput' class="weui-input" placeholder="请输入项目简称" />
           </view>
         </view>
 

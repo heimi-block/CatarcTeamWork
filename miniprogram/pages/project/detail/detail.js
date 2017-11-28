@@ -174,7 +174,7 @@ Page({
   // 获取动态维护的w属性
   getwCustomerSource: function () {
     let token = wx.getStorageSync('token')
-    network.requestLoading('/api/wCustomerSource', 'GET', '', { 'Content-Type': 'application/x-www-form-urlencoded', 'X-MC-TOKEN': 'Bearer ' + token }, '', (res) => {
+    network.requestLoading('/api/wCustomerSource?isPaging=false', 'GET', '', { 'Content-Type': 'application/x-www-form-urlencoded', 'X-MC-TOKEN': 'Bearer ' + token }, '', (res) => {
       // 数据请求成功，res
       const wCustomerSources_name = ['请选择项目渠道']
       const wCustomerSources_id = ['']
@@ -192,7 +192,7 @@ Page({
   },
   getwProjectKind: function () {
     let token = wx.getStorageSync('token')
-    network.requestLoading('/api/wProjectKind', 'GET', '', { 'Content-Type': 'application/x-www-form-urlencoded', 'X-MC-TOKEN': 'Bearer ' + token }, '', (res) => {
+    network.requestLoading('/api/wProjectKind?isPaging=false', 'GET', '', { 'Content-Type': 'application/x-www-form-urlencoded', 'X-MC-TOKEN': 'Bearer ' + token }, '', (res) => {
       // 数据请求成功，res
       const wProjectKinds_name = ['请选择项目类型']
       const wProjectKinds_id = ['']
@@ -228,7 +228,7 @@ Page({
   // },
   getwCustomerAgencyName: function () {
     let token = wx.getStorageSync('token')
-    network.requestLoading('/api/wCustomerAgencyName', 'GET', '', { 'Content-Type': 'application/x-www-form-urlencoded', 'X-MC-TOKEN': 'Bearer ' + token }, '', (res) => {
+    network.requestLoading('/api/wCustomerAgencyName?isPaging=false', 'GET', '', { 'Content-Type': 'application/x-www-form-urlencoded', 'X-MC-TOKEN': 'Bearer ' + token }, '', (res) => {
       // 数据请求成功，res
       const wCustomerAgencyNames_name = ['请选择客户名称']
       const wCustomerAgencyNames_id = ['']
@@ -246,7 +246,7 @@ Page({
   },
   getwSaleStage: function () {
     let token = wx.getStorageSync('token')
-    network.requestLoading('/api/wSaleStage', 'GET', '', { 'Content-Type': 'application/x-www-form-urlencoded', 'X-MC-TOKEN': 'Bearer ' + token }, '', (res) => {
+    network.requestLoading('/api/wSaleStage?isPaging=false', 'GET', '', { 'Content-Type': 'application/x-www-form-urlencoded', 'X-MC-TOKEN': 'Bearer ' + token }, '', (res) => {
       // 数据请求成功，res
       const wSaleStages_name = ['请选择销售阶段']
       const wSaleStages_id = ['']
@@ -264,7 +264,7 @@ Page({
   },
   getwBiddingType: function () {
     let token = wx.getStorageSync('token')
-    network.requestLoading('/api/wBiddingType', 'GET', '', { 'Content-Type': 'application/x-www-form-urlencoded', 'X-MC-TOKEN': 'Bearer ' + token }, '', (res) => {
+    network.requestLoading('/api/wBiddingType?isPaging=false', 'GET', '', { 'Content-Type': 'application/x-www-form-urlencoded', 'X-MC-TOKEN': 'Bearer ' + token }, '', (res) => {
       // 数据请求成功，res
       const wBiddingTypes_name = ['请选择招标方式']
       const wBiddingTypes_id = ['']
@@ -282,7 +282,7 @@ Page({
   },
   getwPreSaleMan: function () {
     let token = wx.getStorageSync('token')
-    network.requestLoading('/api/wPreSaleMan', 'GET', '', { 'Content-Type': 'application/x-www-form-urlencoded', 'X-MC-TOKEN': 'Bearer ' + token }, '', (res) => {
+    network.requestLoading('/api/wPreSaleMan?isPaging=false', 'GET', '', { 'Content-Type': 'application/x-www-form-urlencoded', 'X-MC-TOKEN': 'Bearer ' + token }, '', (res) => {
       // 数据请求成功，res
       const wPreSaleMans_name = ['请选择售前人员']
       const wPreSaleMans_id = ['']
@@ -360,7 +360,7 @@ Page({
       if (res.code === 1) {
         const crm = res.result
         this.setData({
-          wTrackRecords: crm.trackRecords.reverse().map(e => {
+          wTrackRecords: crm.trackRecords.map(e => {
             e.createdAt = e.createdAt.substr(0, 10)
             return e
           }),

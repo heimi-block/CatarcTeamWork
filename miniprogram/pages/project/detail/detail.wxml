@@ -28,10 +28,10 @@
 
         <view class="weui-cell weui-cell_input">
           <view class="weui-cell__hd">
-            <view class="weui-label">客户简称</view>
+            <view class="weui-label">项目简称</view>
           </view>
           <view class="weui-cell__bd">
-            <input bindinput='bindCustomerNameInput' class="weui-input" placeholder="请输入客户简称" value='{{customerName}}' />
+            <input bindinput='bindCustomerNameInput' class="weui-input" placeholder="请输入项目简称" value='{{customerName}}' />
           </view>
         </view>
 
@@ -166,7 +166,7 @@
             <view class="weui-label">预计订单额</view>
           </view>
           <view class="weui-cell__bd">
-            <input value="{{forecastOrderMoney===''?forecastOrderMoney:forecastOrderMoney+'万'}}" bindinput='bindForecastOrderMoneyInput' class="weui-input" placeholder="请输入预计订单额" />
+            <input value="{{forecastOrderMoney===''?forecastOrderMoney:forecastOrderMoney}}" bindinput='bindForecastOrderMoneyInput' class="weui-input" placeholder="请输入预计订单额" />
           </view>
         </view>
 
@@ -187,7 +187,7 @@
           </view>
           <view class="weui-cell__bd">
             <input bindinput='bindActualSignMoneyInput' 
-            value="{{actualSignMoney===''?actualSignMoney:actualSignMoney+'万'}}" class="weui-input" placeholder="请输入实际签订额" />
+            value="{{actualSignMoney===''?actualSignMoney:actualSignMoney}}" class="weui-input" placeholder="请输入实际签订额" />
           </view>
         </view>
       </view>

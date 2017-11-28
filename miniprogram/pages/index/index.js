@@ -22,7 +22,7 @@ Page({
     let token = wx.getStorageSync('token')
     const params = {}
     params.wProjectMan = wx.getStorageSync('_id')
-    network.requestLoading('/api/project_todo', 'GET', params, { 'Content-Type': 'application/x-www-form-urlencoded', 'X-MC-TOKEN': 'Bearer ' + token }, '', (res) => {
+    network.requestLoading('/api/project_todo?isPaging=false', 'GET', params, { 'Content-Type': 'application/x-www-form-urlencoded', 'X-MC-TOKEN': 'Bearer ' + token }, '', (res) => {
       // 数据请求成功，res
       if (res.code === 1){
         this.setData({
